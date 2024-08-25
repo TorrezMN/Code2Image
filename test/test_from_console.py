@@ -3,7 +3,6 @@
 # python3 script.py my_custom.py monokai --scenario console
 
 
-
 import argparse
 from PIL import Image, ImageDraw, ImageFont
 
