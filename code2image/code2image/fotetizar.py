@@ -6,6 +6,7 @@
 import argparse
 from PIL import Image, ImageDraw, ImageFont
 
+
 def draw_text(draw, text, position, font, max_width, fill):
     """
     Draw wrapped text on an image, ensuring it fits within max_width.
@@ -13,25 +14,32 @@ def draw_text(draw, text, position, font, max_width, fill):
     lines = []
     words = text.split()
     current_line = ""
-    
+
     for word in words:
         test_line = f"{current_line} {word}".strip()
-        text_width, text_height = draw.textsize(test_line, font=font)
-        
+        bbox = draw.textbbox((0, 0), test_line, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+
         if text_width > max_width:
             lines.append(current_line)
             current_line = word
         else:
             current_line = test_line
-    
+
     lines.append(current_line)  # Add the last line
 
     y = position[1]
     for line in lines:
         draw.text((position[0], y), line, font=font, fill=fill)
+        bbox = draw.textbbox((0, 0), line, font=font)
+        text_height = bbox[3] - bbox[1]
         y += text_height + 5  # Add spacing between lines
 
     return y  # Return the final y position
+
+
+
 
 def new_image(scenario, text, theme, font_path):
     # Define color themes
@@ -72,12 +80,15 @@ def new_image(scenario, text, theme, font_path):
 
     # Measure line width and total height
     for line in text.strip().split("\n"):
-        text_width, text_height = dummy_draw.textsize(line, font=font)
+        bbox = dummy_draw.textbbox((0, 0), line, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
         max_line_width = max(max_line_width, text_width)
         total_height += text_height + 5
 
     # Calculate image dimensions
-    width = max_line_width + 60  # Adding padding for line numbers and margins
+    #width = max_line_width + 60  # Adding padding for line numbers and margins
+    width = int((max_line_width + 60) * 1.10)  # Adding padding for line numbers and margins and then increasing width by 10%
     height = total_height + 20  # Adding padding
 
     # Create an image with the selected background color
@@ -95,8 +106,8 @@ def new_image(scenario, text, theme, font_path):
         draw.text((padding, y), line_number, font=font, fill=line_number_color)
         
         # Draw text line with wrapping and leading spaces
-        draw.text((padding + 40 + leading_spaces * font.getsize(' ')[0], y), line.lstrip(), font=font, fill=text_color)
-        y += font.getsize('A')[1] + 5  # Add spacing between lines
+        draw.text((padding + 40 + leading_spaces * draw.textbbox((0, 0), ' ', font=font)[2], y), line.lstrip(), font=font, fill=text_color)
+        y += draw.textbbox((0, 0), 'A', font=font)[3] - draw.textbbox((0, 0), 'A', font=font)[1] + 5  # Add spacing between lines
 
     # Optionally, add a border to the image
     border_color = (200, 200, 200)  # Border color remains the same
@@ -105,6 +116,7 @@ def new_image(scenario, text, theme, font_path):
 
     # Save the image
     image.save(f"{scenario}_{theme}.png")
+
 
 
 def main():
