@@ -14,9 +14,12 @@ TEST_FILE="./tests/test_file.js"
 for THEME in $THEMES; do
     # Loop through each font
     for FONT in $FONTS; do
+        # Build the full path to the font file
+        FONT_PATH="$FONT_DIR/$FONT"
+
         # Run the script with the current theme and font
         echo "Testing theme '$THEME' with font '$FONT'..."
-        python3 -m code2image.fotetizar "$TEST_FILE" "$THEME" --font "$FONT" --scenario console
+        python3 -m code2image.fotetizar "$TEST_FILE" "$THEME" --font "$FONT_PATH" --scenario console
         if [ $? -ne 0 ]; then
             echo "Test failed for theme '$THEME' with font '$FONT'."
         else

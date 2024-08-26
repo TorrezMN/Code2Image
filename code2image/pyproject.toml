@@ -4,15 +4,16 @@ version = "0.1.0"
 description = "A tool to generate images from code with different themes."
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
+license = "MIT"  # Add a license if applicable
 
 [tool.poetry.dependencies]
 python = "^3.8"
 pillow = "^10.0.0"
 
 [tool.poetry.scripts]
-code2image = "code2image.code2image.fotetizar:main"
+code2image = "code2image:main"  # Adjusted to match your script/module
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 

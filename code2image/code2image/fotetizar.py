@@ -6,42 +6,7 @@
 import argparse
 from PIL import Image, ImageDraw, ImageFont
 
-
-def draw_text(draw, text, position, font, max_width, fill):
-    """
-    Draw wrapped text on an image, ensuring it fits within max_width.
-    """
-    lines = []
-    words = text.split()
-    current_line = ""
-
-    for word in words:
-        test_line = f"{current_line} {word}".strip()
-        bbox = draw.textbbox((0, 0), test_line, font=font)
-        text_width = bbox[2] - bbox[0]
-        text_height = bbox[3] - bbox[1]
-
-        if text_width > max_width:
-            lines.append(current_line)
-            current_line = word
-        else:
-            current_line = test_line
-
-    lines.append(current_line)  # Add the last line
-
-    y = position[1]
-    for line in lines:
-        draw.text((position[0], y), line, font=font, fill=fill)
-        bbox = draw.textbbox((0, 0), line, font=font)
-        text_height = bbox[3] - bbox[1]
-        y += text_height + 5  # Add spacing between lines
-
-    return y  # Return the final y position
-
-
-
-
-def new_image(scenario, text, theme, font_path):
+def new_image(input_filename, scenario, text, theme, font_path):
     # Define color themes
     themes = {
         'monokai': {'background': (0, 0, 0), 'text': (255, 255, 255), 'line_number': (200, 200, 200)},
@@ -53,7 +18,7 @@ def new_image(scenario, text, theme, font_path):
         'github': {'background': (255, 255, 255), 'text': (0, 0, 0), 'line_number': (200, 200, 200)},
         'one_dark': {'background': (40, 44, 52), 'text': (204, 204, 204), 'line_number': (136, 192, 208)},
         'atom': {'background': (39, 40, 34), 'text': (248, 248, 242), 'line_number': (165, 129, 105)},
-        'vscode': {'background': (30, 30, 30), 'text': (230, 230, 230), 'line_number': (128, 128, 128)}  # Added theme
+        'vscode': {'background': (30, 30, 30), 'text': (230, 230, 230), 'line_number': (128, 128, 128)}
     }
 
     # Select the theme colors
@@ -62,7 +27,7 @@ def new_image(scenario, text, theme, font_path):
     text_color = theme_colors['text']
     line_number_color = theme_colors['line_number']
 
-    # Load the font
+    # Load a monospace font
     font_size = 20
     try:
         font = ImageFont.truetype(font_path, font_size)
@@ -79,16 +44,13 @@ def new_image(scenario, text, theme, font_path):
     total_height = 0
 
     # Measure line width and total height
-    for line in text.strip().split("\n"):
-        bbox = dummy_draw.textbbox((0, 0), line, font=font)
-        text_width = bbox[2] - bbox[0]
-        text_height = bbox[3] - bbox[1]
+    for line in text.splitlines():
+        text_width, text_height = dummy_draw.textsize(line if line.strip() else " ", font=font)
         max_line_width = max(max_line_width, text_width)
-        total_height += text_height + 5
+        total_height += text_height + 10  # Increase spacing between lines
 
     # Calculate image dimensions
-    #width = max_line_width + 60  # Adding padding for line numbers and margins
-    width = int((max_line_width + 60) * 1.10)  # Adding padding for line numbers and margins and then increasing width by 10%
+    width = max_line_width + 60  # Adding padding for line numbers and margins
     height = total_height + 20  # Adding padding
 
     # Create an image with the selected background color
@@ -99,32 +61,35 @@ def new_image(scenario, text, theme, font_path):
 
     # Draw text lines with line numbers
     y = padding
-    for i, line in enumerate(text.strip().split("\n")):
-        # Calculate leading spaces
-        leading_spaces = len(line) - len(line.lstrip())
+    for i, line in enumerate(text.splitlines()):
+        # Draw line number
         line_number = f"{i + 1:02d} "
         draw.text((padding, y), line_number, font=font, fill=line_number_color)
         
-        # Draw text line with wrapping and leading spaces
-        draw.text((padding + 40 + leading_spaces * draw.textbbox((0, 0), ' ', font=font)[2], y), line.lstrip(), font=font, fill=text_color)
-        y += draw.textbbox((0, 0), 'A', font=font)[3] - draw.textbbox((0, 0), 'A', font=font)[1] + 5  # Add spacing between lines
+        # Draw text line (handle empty lines)
+        text_to_draw = line if line.strip() else " "  # Use a space for empty lines to maintain consistent height
+        draw.text((padding + 40, y), text_to_draw, font=font, fill=text_color)
+        _, text_height = draw.textsize(text_to_draw, font=font)
+        y += text_height + 10  # Adjust spacing between lines
 
     # Optionally, add a border to the image
     border_color = (200, 200, 200)  # Border color remains the same
     border_width = 4
     draw.rectangle([border_width, border_width, width-border_width-1, height-border_width-1], outline=border_color)
 
-    # Save the image
-    image.save(f"{scenario}_{theme}.png")
+    # Create the output file name
+    output_filename = f"{input_filename.rsplit('.', 1)[0]}_{theme}.png"
 
-
+    # Save the image with the new file name
+    image.save(output_filename)
+    print(f"Image saved as '{output_filename}'")
 
 def main():
     # Set up argument parser
     parser = argparse.ArgumentParser(description='Generate an image from text with different themes.')
     parser.add_argument('file', type=str, help='The path to the file containing the text to draw on the image.')
     parser.add_argument('theme', type=str, choices=['monokai', 'blackandwhite', 'solarized', 'gruvbox', 'nord', 'dracula', 'github', 'one_dark', 'atom', 'vscode'], help='The color theme to use for the image.')
-    parser.add_argument('--font', type=str, help='The path to the font file to use for the text.')
+    parser.add_argument('--font', type=str, required=True, help='Path to the font file to use.')
     parser.add_argument('--scenario', type=str, choices=['console', 'editor'], default='console', help='The scenario type for the image.')
 
     args = parser.parse_args()
@@ -138,8 +103,8 @@ def main():
         return
 
     # Generate the image
-    new_image(args.scenario, text, args.theme, args.font)
-    print(f"Image for scenario '{args.scenario}' with theme '{args.theme}' saved as '{args.scenario}_{args.theme}.png'.")
+    new_image(args.file, args.scenario, text, args.theme, args.font)
+    print(f"Image for scenario '{args.scenario}' with theme '{args.theme}' saved as '{args.file.rsplit('.', 1)[0]}_{args.theme}.png'.")
 
 if __name__ == "__main__":
     main()
