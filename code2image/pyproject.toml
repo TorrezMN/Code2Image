@@ -10,6 +10,13 @@ license = "MIT"  # Add a license if applicable
 python = "^3.8"
 pillow = "^10.0.0"
 
+
+[tool.poetry.package.include]
+include = [
+    { path = "code2image/fonts/*", format = "file" },
+]
+
+
 [tool.poetry.scripts]
 code2image = "code2image:main"  # Adjusted to match your script/module
 
