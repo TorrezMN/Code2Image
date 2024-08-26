@@ -1,14 +1,26 @@
 [tool.poetry]
 name = "code2image"
 version = "0.1.0"
-description = ""
+description = "A tool to generate images from code with different themes."
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-
+pillow = "^10.0.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.package]
+include = [
+    { path = "code2image/fonts/*.ttf", format = "file" }
+]
+
+[tool.poetry.scripts]
+code2image = "code2image.code2image.fotetizar:main"
+
+[tool.poetry.packages]
+code2image = { from = "code2image" }
+
