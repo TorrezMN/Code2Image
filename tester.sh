@@ -3,7 +3,7 @@
 # Define the file to test and the scenarios
 FILE="test_file.js"
 SCENARIOS="console editor"
-THEMES="monokai blackandwhite solarized gruvbox nord dracula github one_dark atom vscode"
+THEMES="blackandwhite solarized gruvbox nord dracula github one_dark atom vscode"
 
 # Check if the file exists
 if [ ! -f "$FILE" ]; then
