@@ -42,6 +42,7 @@ def draw_editor(d, img, lines, font, line_number_font, text_color, line_number_c
         d.text((x_text, header_height + 10 + i * 18), line, font=font, fill=text_color)
 
 def draw_console(d, img, lines, font, text_color, file_name):
+    linux_prompt = "user@hostname:~$"
     # Console theme colors
     console_bg_color = (0, 0, 0)  # Black background
     prompt_color = (0, 255, 0)    # Green color for the prompt and text
@@ -51,7 +52,7 @@ def draw_console(d, img, lines, font, text_color, file_name):
 
     # Set up prompt text and spacing
     prompt_font = ImageFont.truetype(font.path, size=18)
-    prompt_text = f"<linux prompt> cat {file_name}"
+    prompt_text = f"{linux_prompt} cat {file_name}"
     prompt_y = 10
 
     # Draw the Linux prompt and file content
@@ -63,7 +64,7 @@ def draw_console(d, img, lines, font, text_color, file_name):
         d.text((10, content_y + i * 18), line, font=font, fill=prompt_color)
     
     # Draw the end of the file content prompt
-    end_prompt_text = "<linux prompt>"
+    end_prompt_text = f"{linux_prompt}"
     end_prompt_y = content_y + len(lines) * 18 + 10  # Space after content
     d.text((10, end_prompt_y), end_prompt_text, font=prompt_font, fill=prompt_color)
 
