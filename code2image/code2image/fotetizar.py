@@ -39,12 +39,17 @@ def draw_text(draw, text, position, font, max_width, fill):
 def new_image(scenario, text, theme):
     # Define color themes
     themes = {
-        'monokai': {'background': (0, 0, 0), 'text': (255, 85, 85), 'line_number': (136, 192, 208)},
         'blackandwhite': {'background': (0, 0, 0), 'text': (255, 255, 255), 'line_number': (200, 200, 200)},
         'solarized': {'background': (0, 43, 54), 'text': (131, 148, 150), 'line_number': (147, 161, 161)},
         'gruvbox': {'background': (40, 28, 22), 'text': (249, 238, 242), 'line_number': (143, 188, 143)},
-        'nord': {'background': (46, 52, 64), 'text': (229, 233, 240), 'line_number': (136, 192, 208)}
+        'nord': {'background': (46, 52, 64), 'text': (229, 233, 240), 'line_number': (136, 192, 208)},
+        'dracula': {'background': (40, 42, 54), 'text': (248, 248, 242), 'line_number': (98, 114, 164)},
+        'github': {'background': (255, 255, 255), 'text': (0, 0, 0), 'line_number': (200, 200, 200)},
+        'one_dark': {'background': (40, 44, 52), 'text': (204, 204, 204), 'line_number': (136, 192, 208)},
+        'atom': {'background': (39, 40, 34), 'text': (248, 248, 242), 'line_number': (165, 129, 105)},
+        'vscode': {'background': (30, 30, 30), 'text': (230, 230, 230), 'line_number': (128, 128, 128)}
     }
+
 
     # Select the theme colors
     theme_colors = themes.get(theme, themes['blackandwhite'])  # Default to 'blackandwhite' if theme is not found
