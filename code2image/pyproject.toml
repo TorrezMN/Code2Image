@@ -9,18 +9,15 @@ readme = "README.md"
 python = "^3.8"
 pillow = "^10.0.0"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.package]
-include = [
-    { path = "code2image/fonts/*.ttf", format = "file" }
-]
-
 [tool.poetry.scripts]
 code2image = "code2image.code2image.fotetizar:main"
 
-[tool.poetry.packages]
-code2image = { from = "code2image" }
+[tool.poetry.include]
+files = [
+    { path = "code2image/fonts/*.ttf", format = "file" }
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
