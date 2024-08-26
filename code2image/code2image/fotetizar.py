@@ -3,9 +3,6 @@
 # Created on: 2024-08-25
 # Author: Torrez, Milton 
 
-# How to execute this:
-# python3 -m code2image.code2image.fotetizar test_file.js monokai --scenario console
-
 import argparse
 from PIL import Image, ImageDraw, ImageFont
 
@@ -36,9 +33,10 @@ def draw_text(draw, text, position, font, max_width, fill):
 
     return y  # Return the final y position
 
-def new_image(scenario, text, theme):
+def new_image(scenario, text, theme, font_path):
     # Define color themes
     themes = {
+        'monokai': {'background': (0, 0, 0), 'text': (255, 255, 255), 'line_number': (200, 200, 200)},
         'blackandwhite': {'background': (0, 0, 0), 'text': (255, 255, 255), 'line_number': (200, 200, 200)},
         'solarized': {'background': (0, 43, 54), 'text': (131, 148, 150), 'line_number': (147, 161, 161)},
         'gruvbox': {'background': (40, 28, 22), 'text': (249, 238, 242), 'line_number': (143, 188, 143)},
@@ -47,9 +45,8 @@ def new_image(scenario, text, theme):
         'github': {'background': (255, 255, 255), 'text': (0, 0, 0), 'line_number': (200, 200, 200)},
         'one_dark': {'background': (40, 44, 52), 'text': (204, 204, 204), 'line_number': (136, 192, 208)},
         'atom': {'background': (39, 40, 34), 'text': (248, 248, 242), 'line_number': (165, 129, 105)},
-        'vscode': {'background': (30, 30, 30), 'text': (230, 230, 230), 'line_number': (128, 128, 128)}
+        'vscode': {'background': (30, 30, 30), 'text': (230, 230, 230), 'line_number': (128, 128, 128)}  # Added theme
     }
-
 
     # Select the theme colors
     theme_colors = themes.get(theme, themes['blackandwhite'])  # Default to 'blackandwhite' if theme is not found
@@ -57,8 +54,7 @@ def new_image(scenario, text, theme):
     text_color = theme_colors['text']
     line_number_color = theme_colors['line_number']
 
-    # Load a monospace font
-    font_path = "/path/to/your/font.ttf"  # Change to your font path
+    # Load the font
     font_size = 20
     try:
         font = ImageFont.truetype(font_path, font_size)
@@ -110,11 +106,13 @@ def new_image(scenario, text, theme):
     # Save the image
     image.save(f"{scenario}_{theme}.png")
 
+
 def main():
     # Set up argument parser
     parser = argparse.ArgumentParser(description='Generate an image from text with different themes.')
     parser.add_argument('file', type=str, help='The path to the file containing the text to draw on the image.')
-    parser.add_argument('theme', type=str, choices=['monokai', 'blackandwhite', 'solarized', 'gruvbox', 'nord'], help='The color theme to use for the image.')
+    parser.add_argument('theme', type=str, choices=['monokai', 'blackandwhite', 'solarized', 'gruvbox', 'nord', 'dracula', 'github', 'one_dark', 'atom', 'vscode'], help='The color theme to use for the image.')
+    parser.add_argument('--font', type=str, help='The path to the font file to use for the text.')
     parser.add_argument('--scenario', type=str, choices=['console', 'editor'], default='console', help='The scenario type for the image.')
 
     args = parser.parse_args()
@@ -128,7 +126,7 @@ def main():
         return
 
     # Generate the image
-    new_image(args.scenario, text, args.theme)
+    new_image(args.scenario, text, args.theme, args.font)
     print(f"Image for scenario '{args.scenario}' with theme '{args.theme}' saved as '{args.scenario}_{args.theme}.png'.")
 
 if __name__ == "__main__":

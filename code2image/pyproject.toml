@@ -12,11 +12,6 @@ pillow = "^10.0.0"
 [tool.poetry.scripts]
 code2image = "code2image.code2image.fotetizar:main"
 
-[tool.poetry.include]
-files = [
-    { path = "code2image/fonts/*.ttf", format = "file" }
-]
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
