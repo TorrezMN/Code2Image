@@ -1,3 +1,13 @@
 include fonts/*
+include docs/*
 
-include REREADME.md
+
+include README.md
+include pyproject.toml
+include poetry.lock
+include MANIFEST.in
+recursive-include docs/examples *.png
+recursive-include fonts *.ttf
+
+
+
