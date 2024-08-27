@@ -1,8 +1,7 @@
-Here’s a refactored version of the README for your package, now named "fotetizar":
 
 ---
 
-# `fotetizar`: Because Your Code Deserves to Shine!
+# Because Your Code Deserves to Shine!
 
 Tired of your code looking plain and boring? It's time to give it the spotlight it deserves! With `fotetizar`, you can transform your code into stunning, themed images. Whether you’re looking to share your code with style or need a cool visual for your portfolio, `fotetizar` has you covered.
 
@@ -32,7 +31,13 @@ To get started with `fotetizar`, you'll need Python and Poetry. If you don’t h
    ```bash
    poetry install --editable .
    ```
+### 4. **Install with pip**
 
+   If you want to install the package with pip. 
+
+   ```bash
+    pip install fotetizar
+   ```
 ## Usage
 
 `fotetizar` can be used both in code and from the command line.
@@ -118,4 +123,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-Feel free to update the examples and other details to match your specific use case and project details!
