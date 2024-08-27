@@ -1,6 +1,5 @@
 import os
 from PIL import Image, ImageDraw, ImageFont
-import argparse
 
 # Define color themes
 THEMES = {
@@ -71,17 +70,12 @@ def draw_console(d, img, lines, font, text_color, file_name):
 
 def render_image(input_file, theme, font_path=None, mode="editor"):
     # Determine the default font directory and default font path
-    default_font_dir = os.path.join(os.path.dirname(__file__), 'fonts')
+    default_font_dir = os.path.join(os.path.dirname(__file__), '../fonts')
     default_font_path = os.path.join(default_font_dir, 'UbuntuMono-Regular.ttf')
 
     # Use the provided font or fallback to the default font
-    try:
-        font = ImageFont.truetype(font_path or default_font_path, size=14)  # Adjust size as needed
-    except OSError:
-        print(f"Warning: Unable to open font file '{font_path or default_font_path}'. Using default font.")
-        font = ImageFont.load_default()  # Load a default font
-
-    line_number_font = font  # Use the same font for line numbers
+    font = ImageFont.truetype(font_path or default_font_path, size=14)  # Adjust size as needed
+    line_number_font = ImageFont.truetype(font_path or default_font_path, size=14)  # Same size for line numbers
 
     # Load the input file
     with open(input_file, 'r') as f:
@@ -112,8 +106,10 @@ def render_image(input_file, theme, font_path=None, mode="editor"):
     img.save(output_file)
     print(f"Image saved as {output_file}")
 
-def main():
-    parser = argparse.ArgumentParser(description="Generate images from code with different themes.")
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
     parser.add_argument("input_file", help="Path to the input file")
     parser.add_argument("theme", help="Theme to use for rendering")
     parser.add_argument("--font", help="Optional custom font file to use", default=None)
@@ -122,7 +118,4 @@ def main():
     args = parser.parse_args()
 
     render_image(args.input_file, args.theme, args.font, args.mode)
-
-if __name__ == "__main__":
-    main()
 

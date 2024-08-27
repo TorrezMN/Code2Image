@@ -2,23 +2,19 @@
 name = "code2image"
 version = "0.1.0"
 description = "A tool to generate images from code with different themes."
-authors = ["Your Name <you@example.com>"]
+authors = ["Torrez, Milton <torrez.mn@gmail.com>"]
 readme = "README.md"
-license = "MIT"  # Add a license if applicable
+license = "MIT"
+keywords = ["code", "share_code", "images"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
 pillow = "^10.0.0"
 
 
-[tool.poetry.package.include]
-include = [
-    { path = "code2image/fonts/*", format = "file" },
-]
-
-
 [tool.poetry.scripts]
-code2image = "code2image:main"  # Adjusted to match your script/module
+code2image = "code2image.fotetizar:main"
+
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
