@@ -1,43 +1,17 @@
-
 ---
 
-# Because Your Code Deserves to Shine!
+# Because Your Code Deserves Art!
 
-Tired of your code looking plain and boring? It's time to give it the spotlight it deserves! With `fotetizar`, you can transform your code into stunning, themed images. Whether you’re looking to share your code with style or need a cool visual for your portfolio, `fotetizar` has you covered.
+Ever wondered why your code looks so dull on a plain text editor? It’s time to bring some pizzazz to your programming! With `fotetizar`, you can transform your code into beautiful, themed images. Whether you want to share your code with flair or just need a cool screenshot for your portfolio, this tool’s got you covered.
 
 ## Installation
 
-To get started with `fotetizar`, you'll need Python and Poetry. If you don’t have Poetry installed, follow the installation guide [here](https://python-poetry.org/docs/#installation).
+You can easily install `fotetizar` from PyPI using pip:
 
-### 1. **Clone the Repository**
+```bash
+pip install fotetizar
+```
 
-   ```bash
-   git clone https://github.com/yourusername/fotetizar.git
-   cd fotetizar
-   ```
-
-### 2. **Install Dependencies**
-
-   Install all required dependencies with Poetry:
-
-   ```bash
-   poetry install
-   ```
-
-### 3. **Install the Package**
-
-   If you want to install the package locally for development purposes:
-
-   ```bash
-   poetry install --editable .
-   ```
-### 4. **Install with pip**
-
-   If you want to install the package with pip. 
-
-   ```bash
-    pip install fotetizar
-   ```
 ## Usage
 
 `fotetizar` can be used both in code and from the command line.
@@ -49,34 +23,50 @@ Here’s a quick example of how to use `fotetizar` programmatically:
 ```python
 from fotetizar import render_image
 
-input_file = 'your_code_file.py'  # Replace with your actual file
+input_file = 'example_script.py'
 theme = 'dracula'
-font_path = 'path/to/custom/font.ttf'  # Replace with your actual font path
+font_path = 'path/to/custom/font.ttf'
 mode = 'editor'
 
 render_image(input_file, theme, font_path, mode)
 ```
 
-This will generate an image of the code in `your_code_file.py` using the "dracula" theme, with the specified font, in "editor" mode.
+This will generate an image of the code in `example_script.py` using the "dracula" theme and the specified font, in "editor" mode.
 
 ### In Console
 
-To use `fotetizar` from the command line, run the following command:
+To use `fotetizar` from the command line, you can run the following command:
 
 ```bash
-fotetizar your_code_file.py dracula --mode editor
+fotetizar example_script.py dracula --mode editor
 ```
 
-This command generates an image of `your_code_file.py` using the "dracula" theme in "editor" mode.
+This command generates an image of `example_script.py` using the "dracula" theme in "editor" mode.
+
+### Example Outputs
+
+Here are some examples of what `fotetizar` can do:
+
+#### Dracula Theme in Editor Mode
+
+![Dracula Theme in Editor Mode](examples/example_dracula_editor.png)
+
+#### Commodore64 Theme in Console Mode
+
+![Commodore64 Theme in Console Mode](examples/example_commodore64_console.png)
+
+#### Nord Theme with Custom Font
+
+![Nord Theme with Custom Font](examples/example_nord_customfont.png)
 
 ## Options / Arguments
 
 Here are the available options and arguments for `fotetizar`:
 
-- **`input_file`** (required): The path to the input file you want to render. This should be a Python script or any text file containing code.
-  - Example: `your_code_file.py`
+- ***`input_file`*** (required): The path to the input file you want to render. This should be a Python script or any text file containing code.
+  - Example: `example_script.py`
 
-- **`theme`** (required): The color theme to use for rendering.
+- ***`theme`*** (required): The color theme to use for rendering.
   - Available themes:
     - `monokai`
     - `blackandwhite`
@@ -91,31 +81,70 @@ Here are the available options and arguments for `fotetizar`:
     - `commodore64`
   - Example: `dracula`
 
-- **`--font`** (optional): Path to a custom font file to use for rendering.
+- ***`--font`*** (optional): Path to a custom font file to use for rendering.
   - Example: `path/to/custom/font.ttf`
 
-- **`--mode`** (optional): The rendering mode, either "editor" or "console".
+- ***`--mode`*** (optional): The rendering mode, either "editor" or "console".
   - Example: `editor`
 
 ### Examples
 
-1. **Generate an image with the "dracula" theme and "editor" mode**:
+1. ***Generate an image with the "dracula" theme and "editor" mode***:
 
    ```bash
-   fotetizar your_code_file.py dracula --mode editor
+   fotetizar example_script.py dracula --mode editor
    ```
 
-2. **Generate an image with a custom font and "console" mode**:
+2. ***Generate an image with a custom font and "console" mode***:
 
    ```bash
-   fotetizar your_code_file.py nord --font path/to/custom/font.ttf --mode console
+   fotetizar example_script.py nord --font path/to/custom/font.ttf --mode console
    ```
 
-3. **Use the "commodore64" theme with default settings**:
+3. ***Use the "commodore64" theme with default settings***:
 
    ```bash
-   fotetizar your_code_file.py commodore64
+   fotetizar example_script.py commodore64
    ```
+
+## Example Outputs
+
+Here are some examples of the images generated by `fotetizar`:
+
+### ***atom*** theme in editor mode.
+![atom Theme in  editor Mode](fotetizar/examples/test_file_atom.png) 
+
+### ***console*** mode. 
+![Console Mode](fotetizar/examples/test_file_atom_console.png)   
+
+### ***blackandwhite*** theme in editor mode.
+![ Theme in  Mode](fotetizar/examples/test_file_blackandwhite.png) 
+
+### ***dracula*** theme in editor mode.
+![ Theme in  Mode](fotetizar/examples/test_file_dracula.png)    
+
+### ***github*** theme in editor mode.
+![ Theme in  Mode](fotetizar/examples/test_file_github.png)      
+
+### ***gruvbox*** theme in editor mode.
+![ Theme in  Mode](fotetizar/examples/test_file_gruvbox.png)       
+
+### ***monokai*** theme in editor mode.
+![ Theme in  Mode](fotetizar/examples/test_file_monokai.png)    
+
+### ***nord*** theme in editor mode.
+![ Theme in  Mode](fotetizar/examples/test_file_nord.png)          
+
+### ***one_dark*** theme in editor mode.
+![ Theme in  Mode](fotetizar/examples/test_file_one_dark.png)        
+
+### ***solarized*** theme in editor mode.
+![ Theme in  Mode](fotetizar/examples/test_file_solarized.png)      
+
+### ***vscode*** theme in editor mode.
+![ Theme in  Mode](fotetizar/examples/test_file_vscode.png)            
+
+
 
 ## License
 
