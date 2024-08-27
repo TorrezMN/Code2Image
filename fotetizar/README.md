@@ -1,29 +1,31 @@
+Here’s a refactored version of the README for your package, now named "fotetizar":
+
 ---
 
-# `code2image`: Because Code Deserves Art!
+# `fotetizar`: Because Your Code Deserves to Shine!
 
-Ever wondered why your code looks so dull on a plain text editor? It’s time to bring some pizzazz to your programming! With `code2image`, you can transform your code into beautiful, themed images. Whether you want to share your code with flair or just need a cool screenshot for your portfolio, this tool’s got you covered.
+Tired of your code looking plain and boring? It's time to give it the spotlight it deserves! With `fotetizar`, you can transform your code into stunning, themed images. Whether you’re looking to share your code with style or need a cool visual for your portfolio, `fotetizar` has you covered.
 
 ## Installation
 
-To get started with `code2image`, you’ll need Python and Poetry. If you don’t have Poetry installed, you can follow the installation guide [here](https://python-poetry.org/docs/#installation).
+To get started with `fotetizar`, you'll need Python and Poetry. If you don’t have Poetry installed, follow the installation guide [here](https://python-poetry.org/docs/#installation).
 
-1. **Clone the Repository**
+### 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/code2image.git
-   cd code2image
+   git clone https://github.com/yourusername/fotetizar.git
+   cd fotetizar
    ```
 
-2. **Install Dependencies**
+### 2. **Install Dependencies**
 
-   With Poetry, you can install all required dependencies with a single command:
+   Install all required dependencies with Poetry:
 
    ```bash
    poetry install
    ```
 
-3. **Install the Package**
+### 3. **Install the Package**
 
    If you want to install the package locally for development purposes:
 
@@ -33,41 +35,41 @@ To get started with `code2image`, you’ll need Python and Poetry. If you don’
 
 ## Usage
 
-`code2image` can be used both in code and from the command line.
+`fotetizar` can be used both in code and from the command line.
 
 ### In Code
 
-Here’s a quick example of how to use `code2image` programmatically:
+Here’s a quick example of how to use `fotetizar` programmatically:
 
 ```python
-from code2image import render_image
+from fotetizar import render_image
 
-input_file = 'example_script.py'
+input_file = 'your_code_file.py'  # Replace with your actual file
 theme = 'dracula'
-font_path = 'path/to/custom/font.ttf'
+font_path = 'path/to/custom/font.ttf'  # Replace with your actual font path
 mode = 'editor'
 
 render_image(input_file, theme, font_path, mode)
 ```
 
-This will generate an image of the code in `example_script.py` using the "dracula" theme and the specified font, in "editor" mode.
+This will generate an image of the code in `your_code_file.py` using the "dracula" theme, with the specified font, in "editor" mode.
 
 ### In Console
 
-To use `code2image` from the command line, you can run the following command:
+To use `fotetizar` from the command line, run the following command:
 
 ```bash
-code2image example_script.py dracula --mode editor
+fotetizar your_code_file.py dracula --mode editor
 ```
 
-This command generates an image of `example_script.py` using the "dracula" theme in "editor" mode.
+This command generates an image of `your_code_file.py` using the "dracula" theme in "editor" mode.
 
 ## Options / Arguments
 
-Here are the available options and arguments for `code2image`:
+Here are the available options and arguments for `fotetizar`:
 
 - **`input_file`** (required): The path to the input file you want to render. This should be a Python script or any text file containing code.
-  - Example: `example_script.py`
+  - Example: `your_code_file.py`
 
 - **`theme`** (required): The color theme to use for rendering.
   - Available themes:
@@ -95,19 +97,19 @@ Here are the available options and arguments for `code2image`:
 1. **Generate an image with the "dracula" theme and "editor" mode**:
 
    ```bash
-   code2image example_script.py dracula --mode editor
+   fotetizar your_code_file.py dracula --mode editor
    ```
 
 2. **Generate an image with a custom font and "console" mode**:
 
    ```bash
-   code2image example_script.py nord --font path/to/custom/font.ttf --mode console
+   fotetizar your_code_file.py nord --font path/to/custom/font.ttf --mode console
    ```
 
 3. **Use the "commodore64" theme with default settings**:
 
    ```bash
-   code2image example_script.py commodore64
+   fotetizar your_code_file.py commodore64
    ```
 
 ## License
@@ -116,4 +118,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-Feel free to adjust the examples and other details to better fit your use case and project specifics!
+Feel free to update the examples and other details to match your specific use case and project details!
